@@ -1,16 +1,22 @@
 var x;
 var y;
 var z;
+console.log("one");
 
+var getUserRepos = function(user) {
+    // format the github api url
+    var apiUrl = `https://api.github.com/users/${user}/repos`;
 
-var getUserRepos = function() {
-    fetch("https://api.github.com/users/octocat/repos").then(function(rrr) {rrr.json().then(function(data) {console.log(data);});
+    fetch(apiUrl).then(function(response) {
+        response.json().then(function(data) {
+        console.log(data);
+    });
     });
 };
+console.log("three");
 
+getUserRepos("H0RSESH0E");
 
-fetch("https://api.github.com/users/octocat/repos").then(object => object.json());
-
-console.log()
+console.log("four");
 
 // getUserRepos();
