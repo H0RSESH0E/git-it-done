@@ -1,4 +1,16 @@
 var issuesContainerEl = document.querySelector("#issues-container");
+var limitWarningEl = document.querySelector("#limit-warning");
+
+
+var displayWarning = function(repo) {
+    limitWarningEl.textContent = "To see more than 30 issues, visit ";
+    var linkEl = document.createElement("a");
+    linkEl.textContent = "See More Issues on GitHub.com";
+    linkEl.setAttribute("href", `https://github.com/${repo}/issues`);
+    linkEl.setAttribute("target", "_blank");
+
+    limitWarningEl.appendChild(linkEl);
+}
 
 var displayIssues = function(issues) {
     console.log(issues);
@@ -39,6 +51,11 @@ var getRepoIssues = function(repo) {
         if (res.ok) {
             res.json().then(function (data) {
                 displayIssues(data);
+
+                // check for paginated issues
+                if (res.headers.get("link")) {
+                    displayWarning(repo);
+                }
             })
         }
         else {
@@ -50,4 +67,4 @@ var getRepoIssues = function(repo) {
     })
 }
 
-getRepoIssues("H0RSESH0E/git-it-done")
+getRepoIssues("facebook/react")
